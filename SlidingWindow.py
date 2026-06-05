@@ -1,4 +1,19 @@
 
+# Sliding window with fixed size k
+
+# 1. Process first k elements into some 'collection'.
+
+# 2. Move window to the right.
+
+#    a) Remove trailing element from 'collection'.
+
+#    b) Add leading element to 'collection'.
+
+# 3. Do the business logic ( max, min, etc ).
+
+
+
+
 # Naive sliding window
 def naive_max_subarray_sum_size_k(nums, k):
     max_sum = float('-inf')
