@@ -83,7 +83,6 @@ def has_substring_anagram(s, anagram):
         
     return False
 
-
 def count_substring_anagram(s, anagram):
     # Checking if the first elements in the window match the anagram string
     anagram_counter = Counter(anagram)
@@ -101,6 +100,21 @@ def count_substring_anagram(s, anagram):
             num_matches += 1
     return num_matches
 
+# Sliding window with variable size
+
+# 1. Initialise start pointer to 0
+
+# 2. Initialise window 'collection'
+
+# 3. Iterate end pointer through array
+
+#   a) Add leading element to collection
+
+#   b) Remove trailing elements from collection *while* constraint is violated
+
+# 4. Do the business logic (count, max, min, find, etc.)
+
+
 def variable_find_sum(nums, target_sum):
     start = 0
     window_sum = 0
@@ -111,6 +125,36 @@ def variable_find_sum(nums, target_sum):
             start += 1
         if window_sum == target_sum:
             return (start, end)
+
+def longest_subarray_sum(nums, target_sum):
+    start = 0
+    longest = -1
+    window_sum = 0
+    for end in range(0, len(nums)):
+        window_sum += nums[end]
+        while window_sum > target_sum:
+            window_sum -= nums[start]
+            start += 1
+        if window_sum == target_sum:    
+            longest = max(end - start + 1, longest)
+    return longest
+
+def longest_unique_substring(s):
+    start = 0
+    longest = 0
+    window_counter = Counter()
+    for end in range(0, len(s)):
+        leading_char = s[end]
+        window_counter[leading_char] += 1
+
+        while window_counter[leading_char] > 1:
+            trailing_char = s[start]
+            window_counter[trailing_char] -= 1
+            start += 1
+        longest = max(end - start + 1, longest)
+    return longest
+
+
 
 
 print(naive_max_subarray_sum_size_k([4, 2, 1, -9, 8, 4, 3], 3))
@@ -126,3 +170,5 @@ print(has_substring_anagram("greyhounds", "hoy"))
 print(count_substring_anagram("tacoctacabcatt", "cat"))
 
 print(variable_find_sum([1, 2, 3, 7, 5], 12))
+
+print(longest_unique_substring("abcabcqbb"))
