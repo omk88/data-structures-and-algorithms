@@ -1,3 +1,4 @@
+from collections import Counter
 
 # Sliding window with fixed size k
 
@@ -82,6 +83,36 @@ def has_substring_anagram(s, anagram):
         
     return False
 
+
+def count_substring_anagram(s, anagram):
+    # Checking if the first elements in the window match the anagram string
+    anagram_counter = Counter(anagram)
+    window_counter = Counter(s[:len(anagram)])  
+    num_matches = 1 if anagram_counter == window_counter else 0
+
+    # Shifting the window along to search for new matches
+    for i in range(0, len(s) - len(anagram)):
+        trailing_char = s[i]
+        leading_char = s[i + len(anagram)] # len(anagram) is the size of the window
+        window_counter[trailing_char] -= 1
+        window_counter[leading_char] += 1
+
+        if window_counter == anagram_counter:
+            num_matches += 1
+    return num_matches
+
+def variable_find_sum(nums, target_sum):
+    start = 0
+    window_sum = 0
+    for end in range(0, len(nums)):
+        window_sum += nums[end]
+        while window_sum > target_sum:
+            window_sum -= nums[start]
+            start += 1
+        if window_sum == target_sum:
+            return (start, end)
+
+
 print(naive_max_subarray_sum_size_k([4, 2, 1, -9, 8, 4, 3], 3))
 
 print(optimal_max_subarray_sum_size_k([4, 2, 1, -9, 8, 4, 3], 3))
@@ -91,3 +122,7 @@ print(multiplication_max_subarray_sum_size_k([1, 4, 1, 6, -3, 3, -5, 2, 26], 4))
 print(subarray_target_sum_size_k([1, 2, 1, 5, 2, 3, 10, 1, 9, 4, 3, 3, 7], 10, 3))
 
 print(has_substring_anagram("greyhounds", "hoy"))
+
+print(count_substring_anagram("tacoctacabcatt", "cat"))
+
+print(variable_find_sum([1, 2, 3, 7, 5], 12))
