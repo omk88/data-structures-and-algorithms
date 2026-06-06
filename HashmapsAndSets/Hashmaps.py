@@ -51,3 +51,58 @@ apple_count = counts.get("apple", 0) # Returns 3
 
 
 # Iterating (looping) through hashmaps
+# When you need to process the data you've collected, you can loop through keys, values or both
+
+for key in my_dict: # Loop through the keys by default
+    print(key)
+
+for value in my_dict.values(): # Loop through only the values
+    print(value)
+
+for key, value in my_dict.items(): # Loop through both keys and values
+    print(key, value)
+
+# Looping through both keys and values
+scores = {'Alice': 95, 'Bob': 88}
+
+for name, score in scores.items():
+    print(f"{name} scored {score}")
+
+
+# Advanced / Shortcut syntaxes
+# To write fast, bug free code under a timer, Python provides two powerful tools in its standard library that interviewers love
+
+# A. collections.defaultdict
+# When counting frequencies in a standard dictionary, you usually have to write code like this
+
+# The tedious way
+if item not in counts:
+    counts[item] = 0
+counts[item] += 1
+
+# A defaultdict automates this. If a key doesn't exist, it automatically initialises it with a default value (like 0 for integers)
+from collections import defaultdict
+
+# Tell it to default to integers (which start at 0)
+counts = defaultdict(int)
+
+for item in ['a', 'b', 'c']:
+    counts[item] += 1 # No 'if item not in counts' check needed!
+
+# Result: {'a': 2, 'b': 1}
+
+# B. collections.counter
+# If your goal is literally just to count how many times items appear in a list, Python has a build in hashmap subclass that does it in just one line
+
+from collections import Counter
+
+my_list = ['apple', 'banana', 'apple', 'orange', 'banana', 'banana']
+
+counts = Counter(my_list)
+
+print(counts)           # Counter({'banana': 3, 'apple': 2, 'orange': 1})
+print(counts['apple'])  # 2
+
+
+# Use a set if you only care about *presence* (have I seen this number before)
+# Use a hashmap (dict) if you care about association or frequency. (How many times have I seen this number? Or, which index have I seen this number at?)
