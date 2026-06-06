@@ -12,9 +12,6 @@ from collections import Counter
 
 # 3. Do the business logic ( max, min, etc ).
 
-
-
-
 # Naive sliding window
 def naive_max_subarray_sum_size_k(nums, k):
     max_sum = float('-inf')
