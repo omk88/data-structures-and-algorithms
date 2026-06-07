@@ -169,3 +169,28 @@ print(count_substring_anagram("tacoctacabcatt", "cat"))
 print(variable_find_sum([1, 2, 3, 7, 5], 12))
 
 print(longest_unique_substring("abcabcqbb"))
+
+
+
+
+# Universal variable length sliding window template
+
+# 1. Initialise the pointers
+start = 0
+max_length = 0
+counts = {} # Tracks state of the current window
+
+# 2. Loop with the 'end' pointer to expand
+for end in range(len(s)):
+    # Add the incoming element to our state
+    char = s[end]
+    counts[char] = counts.get(char, 0) + 1
+
+    # 3. Use a 'while' loop to contract if state becomes invalid
+    while counts[char] > 2: # The condition that breaks the rules
+        left_char = s[start]
+        counts[left_char] -= 1 # Remove the outgoing element from the state
+        start += 1             # Move the anchor forward
+
+        # 4. Once valid, calculate and update your answer
+        max_length = max(max_length, end - start + 1)
